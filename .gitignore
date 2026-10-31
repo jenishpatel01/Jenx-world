@@ -1,0 +1,5 @@
+# never publish these
+JENX-*
+*.key
+node_modules/
+.env*
