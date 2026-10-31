@@ -1,0 +1,1477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JENX World — Jenish Patel · UI/UX Designer &amp; Web App Developer</title>
+<meta name="description" content="JENX World — the portfolio of Jenish Patel, a UI/UX designer and web app developer from Bangalore. Explore LIFE//XP, NEXORA, PRISM and the upcoming Planet Zero, and get in touch." />
+<meta property="og:title" content="JENX World — Where ideas get their own orbit" />
+<meta property="og:description" content="Jenish Patel · UI/UX designer &amp; web app developer. LIFE//XP · NEXORA · PRISM · Planet Zero." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="theme-color" content="#04060f" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3 22 20H2Z' fill='%235df0a8'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.143.0/build/three.module.js",
+  "three/examples/jsm/": "https://unpkg.com/three@0.143.0/examples/jsm/"
+}}
+</script>
+
+<style>
+:root{
+  --bg:#04060f; --bg-2:#060a18; --ink:#f3f6ff; --muted:#9aa6c4; --muted-2:#6b7796;
+  --line:rgba(150,175,230,.12); --line-strong:rgba(150,175,230,.22);
+  --accent:#5df0a8; --accent-2:#2fd38a; --accent-ink:#032018;
+  --glass:rgba(12,18,38,.55); --glass-2:rgba(16,24,48,.65);
+  --radius:18px; --radius-lg:26px; --maxw:1180px;
+  --shadow:0 30px 80px -30px rgba(0,0,0,.75);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+/* Lenis */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+/* staggered scroll-reveal */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,.7,.2,1),transform .7s cubic-bezier(.22,.7,.2,1);transition-delay:var(--rd,0ms);will-change:opacity,transform}
+[data-reveal].in{opacity:1;transform:none}
+/* fixed WebGL planet behind everything, never grabs pointer/scroll */
+.planet-canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+.section{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:clamp(80px,12vw,160px) 24px}
+.eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.section-head{max-width:680px;margin:0 auto clamp(48px,6vw,80px);text-align:center}
+.section-head h2,.showcase-copy h2,.cta-card h2{font-size:clamp(30px,4.4vw,50px);font-weight:800;line-height:1.05;letter-spacing:-.02em;text-shadow:0 2px 40px rgba(0,0,0,.6)}
+.section-head p{margin-top:18px;color:var(--muted);font-size:18px;line-height:1.65;text-shadow:0 1px 24px rgba(0,0,0,.55)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:600;padding:13px 22px;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:transform .18s ease,box-shadow .25s ease,background .2s ease,border-color .2s ease;white-space:nowrap;font-family:inherit;justify-content:center}
+.btn svg{width:17px;height:17px}
+.btn-primary{color:var(--accent-ink);background:linear-gradient(180deg,var(--accent),var(--accent-2));box-shadow:0 10px 30px -8px rgba(93,240,168,.55),inset 0 1px 0 rgba(255,255,255,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px -8px rgba(93,240,168,.7)}
+.btn-outline{color:var(--ink);background:rgba(255,255,255,.04);border-color:var(--line-strong);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn-outline:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.btn-ghost{color:var(--ink);background:rgba(255,255,255,.05);border-color:var(--line-strong);padding:9px 18px}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn[disabled]{opacity:.6;cursor:progress;transform:none}
+
+.ico{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ico-arrow{stroke-width:2}
+
+/* ---------------- HERO ---------------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(125% 62% at 50% -10%, rgba(4,6,15,.82) 0%, rgba(4,6,15,.28) 44%, transparent 68%)}
+.nav{width:100%;max-width:var(--maxw);margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:19px;letter-spacing:.16em;text-transform:uppercase}
+.brand-mark{color:var(--accent);font-size:14px;transform:translateY(-1px)}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{font-size:14.5px;color:var(--muted);transition:color .2s ease}
+.nav-links a:hover{color:var(--ink)}
+.hero-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;transform:translateY(-10vh)}
+.hero-hello{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;padding:7px 14px 7px 10px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(4,6,15,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-hello i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(93,240,168,.6);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(93,240,168,.55)}70%{box-shadow:0 0 0 9px rgba(93,240,168,0)}100%{box-shadow:0 0 0 0 rgba(93,240,168,0)}}
+.hero-title{font-size:clamp(34px,5.2vw,62px);font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:15ch;text-shadow:0 2px 50px rgba(0,0,0,.55)}
+.hero-title em{font-style:normal;background:linear-gradient(180deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-world{color:var(--accent);margin-left:-2px}
+.hero-slogan{margin-top:18px;font-size:clamp(18px,2.4vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--ink);text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.hero-slogan span{color:var(--accent)}
+.hero-sub{margin-top:24px;max-width:560px;font-size:clamp(16px,2vw,19px);line-height:1.6;color:var(--muted);text-shadow:0 1px 24px rgba(0,0,0,.55)}
+.hero-actions{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.logos{text-align:center;padding:0 24px clamp(36px,6vw,64px)}
+.logos-label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:18px}
+.logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(24px,5vw,56px)}
+.logo{font-size:17px;font-weight:700;color:var(--muted-2);opacity:.8;transition:color .2s ease,opacity .2s ease;display:inline-flex;align-items:center;gap:8px}
+.logo svg{width:18px;height:18px}
+.logo:hover{color:var(--ink);opacity:1}
+
+/* ---------------- SLOGAN MARQUEE ---------------- */
+.marquee{position:relative;z-index:1;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(4,6,15,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.marquee-track span{display:inline-flex;align-items:center;gap:28px;padding:18px 14px;font-size:clamp(15px,1.8vw,19px);font-weight:700;letter-spacing:-.01em;white-space:nowrap;color:var(--muted)}
+.marquee-track span::after{content:"✦";color:var(--accent);font-size:14px}
+.marquee-track span:nth-child(3n+2){color:var(--ink)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ---------------- PROJECTS ---------------- */
+.projects{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px)}
+.project{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,4vw,48px);align-items:center;padding:clamp(18px,2.4vw,26px);border-radius:var(--radius-lg);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:relative;overflow:hidden;transition:border-color .3s ease,background .3s ease}
+.project::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 120% at 0% 0%, rgba(93,240,168,.08), transparent 45%);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.project:hover{border-color:var(--line-strong);background:var(--glass-2)}
+.project:hover::before{opacity:1}
+.project.flip{grid-template-columns:1fr 1.25fr}
+.project.flip .preview{order:2}
+
+.preview{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line-strong);background:#070b1a;box-shadow:var(--shadow);cursor:pointer;display:block;width:100%;text-align:left;padding:0;font:inherit;color:inherit}
+.preview-bar{display:flex;align-items:center;gap:10px;height:34px;padding:0 12px;background:rgba(10,15,32,.95);border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:6px}
+.dots i{width:9px;height:9px;border-radius:50%;background:#2a3352}
+.dots i:nth-child(1){background:#ff6b6b}.dots i:nth-child(2){background:#ffd27a}.dots i:nth-child(3){background:var(--accent)}
+.preview-url{flex:1;min-width:0;font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-url b{color:var(--accent);font-weight:600}
+.preview-screen{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(80% 80% at 50% 40%, #0d1630, #05081a)}
+.preview-screen iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none;background:#05081a;opacity:0;transition:opacity .6s ease}
+.preview-screen iframe.ready{opacity:1}
+.preview-loading{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.preview-loading span{display:inline-flex;align-items:center;gap:10px}
+.preview-loading span::before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid rgba(93,240,168,.25);border-top-color:var(--accent);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.preview-hover{position:absolute;inset:34px 0 0;display:grid;place-items:center;background:linear-gradient(180deg,rgba(4,6,15,0),rgba(4,6,15,.55));opacity:0;transition:opacity .3s ease}
+.preview-hover span{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:10px 18px;border-radius:999px;background:rgba(4,6,15,.75);border:1px solid var(--line-strong);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.preview-hover svg{width:16px;height:16px}
+.preview:hover .preview-hover,.preview:focus-visible .preview-hover{opacity:1}
+
+.project-info{padding:4px clamp(0px,1vw,10px)}
+.project-num{font-size:12px;font-weight:700;letter-spacing:.18em;color:var(--muted-2)}
+.project-status{display:inline-flex;align-items:center;gap:7px;margin-left:12px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);padding:4px 10px;border-radius:999px;background:rgba(93,240,168,.1);border:1px solid rgba(93,240,168,.18)}
+.project-status i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.project-status.soon{color:#ffd27a;background:rgba(255,210,122,.08);border-color:rgba(255,210,122,.22)}
+.project h3{margin-top:16px;font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.project-tagline{margin-top:8px;font-size:16px;font-weight:600;color:var(--accent)}
+.project-desc{margin-top:14px;font-size:15.5px;line-height:1.65;color:var(--muted)}
+.tags{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.tags li{font-size:12.5px;color:var(--muted);padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.project-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+
+/* Planet Zero "coming soon" screen */
+.soon-screen{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(60% 70% at 50% 55%, rgba(58,108,255,.18), transparent 70%),#04060f}
+.soon-stars{position:absolute;inset:-50%;background-image:radial-gradient(1px 1px at 20% 30%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 70% 20%,#cfe0ff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 40% 80%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 85% 65%,#cfe0ff 50%,transparent 51%),radial-gradient(1px 1px at 10% 70%,#cfe0ff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 55% 45%,#cfe0ff 50%,transparent 51%);background-size:220px 220px;opacity:.55;animation:drift 60s linear infinite}
+@keyframes drift{to{transform:translate(220px,110px)}}
+.soon-orbit{position:absolute;width:62%;aspect-ratio:1;border-radius:50%;border:1px dashed rgba(193,250,255,.18);animation:spin 26s linear infinite}
+.soon-orbit::after{content:"";position:absolute;top:50%;left:-5px;width:10px;height:10px;border-radius:50%;background:#ffd27a;box-shadow:0 0 18px 4px rgba(255,210,122,.6)}
+.soon-orbit.o2{width:84%;animation-duration:44s;animation-direction:reverse;border-color:rgba(93,240,168,.12)}
+.soon-orbit.o2::after{background:var(--accent);box-shadow:0 0 16px 3px rgba(93,240,168,.6);top:12%;left:14%}
+.soon-planet{width:34%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 30%, #3a6cff 0%, #142a6b 45%, #050a1e 75%);box-shadow:inset -18px -14px 40px rgba(0,0,0,.7),0 0 60px 6px rgba(58,108,255,.35),0 0 0 1px rgba(193,250,255,.15);position:relative}
+.soon-planet::after{content:"";position:absolute;inset:-14%;border-radius:50%;border:2px solid rgba(193,250,255,.2);transform:rotateX(72deg) rotateZ(-18deg)}
+.soon-text{position:absolute;bottom:9%;left:0;right:0;text-align:center;font-size:clamp(10px,1.3vw,13px);letter-spacing:.32em;text-transform:uppercase;color:#c1faff;opacity:.85}
+.soon-text b{display:block;margin-top:6px;font-size:clamp(18px,2.6vw,30px);letter-spacing:.14em;color:var(--ink);font-weight:800}
+
+/* ---------------- ABOUT / SHOWCASE ---------------- */
+.showcase-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(36px,6vw,72px);align-items:center}
+.showcase-copy p{margin-top:18px;color:var(--muted);font-size:17px;line-height:1.7;text-shadow:0 1px 24px rgba(0,0,0,.55)}
+.showcase-copy .btn{margin-top:30px}
+.dashboard{position:relative;padding:24px;border-radius:var(--radius-lg);background:var(--glass-2);border:1px solid var(--line-strong);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.dashboard::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(160deg, rgba(93,240,168,.35), transparent 40%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.dash-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.dash-title{font-size:15px;font-weight:700}
+.dash-live{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--accent)}
+.dash-live i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:ping 2.2s infinite}
+.dash-bars{display:flex;align-items:flex-end;gap:10px;height:150px;padding:16px;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px}
+.dash-bar{flex:1;background:linear-gradient(180deg,var(--accent),rgba(47,211,138,.25));border-radius:6px 6px 3px 3px;transform-origin:bottom;animation:grow 1s cubic-bezier(.22,.7,.2,1) both;animation-delay:var(--bd,0ms)}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.dash-rows{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+.dash-row{display:grid;grid-template-columns:120px 1fr 64px;gap:14px;align-items:center;font-size:13.5px;color:var(--muted)}
+.dash-row b{font-weight:600;font-size:12px;text-align:right;color:var(--accent)}
+.dash-row b.soon{color:#ffd27a}
+.dash-track{height:8px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.dash-fill{height:100%;width:var(--w);border-radius:inherit;background:linear-gradient(90deg,var(--accent-2),var(--accent));animation:fill 1.4s cubic-bezier(.22,.7,.2,1) .3s both}
+.dash-fill.soon{background:linear-gradient(90deg,#c99a3c,#ffd27a)}
+@keyframes fill{from{width:0}to{width:var(--w)}}
+.stats{margin-top:clamp(56px,8vw,96px);display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat{text-align:center;padding:30px 18px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.stat-value{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-.02em;background:linear-gradient(180deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-label{margin-top:8px;font-size:14px;color:var(--muted)}
+
+.showcase-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.showcase-btns .btn{margin-top:0}
+.showcase-copy .facts{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.showcase-copy .facts li{font-size:13px;color:var(--muted);padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(4,6,15,.4)}
+.showcase-copy .facts b{color:var(--ink);font-weight:600}
+[hidden]{display:none !important}
+
+/* ---------------- JOURNEY + SKILLS ---------------- */
+.journey-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}
+.jcard{position:relative;padding:30px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.jcard-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.jcard-kind{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.jcard-kind svg{width:18px;height:18px;color:var(--accent)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid var(--line-strong);color:var(--muted)}
+.pill.on{color:var(--accent);border-color:rgba(93,240,168,.3);background:rgba(93,240,168,.08)}
+.jcard h3{margin-top:18px;font-size:clamp(20px,2.2vw,24px);font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.jcard-sub{margin-top:8px;font-size:15px;color:var(--muted)}
+.jcard ul{margin-top:18px;list-style:none;display:flex;flex-direction:column;gap:11px}
+.jcard li{position:relative;padding-left:22px;font-size:15px;line-height:1.6;color:var(--muted)}
+.jcard li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;transform:rotate(45deg);background:var(--accent);border-radius:1px}
+.skills-head{margin:clamp(56px,8vw,96px) auto 28px;text-align:center}
+.skills-head h3{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.02em;text-shadow:0 2px 40px rgba(0,0,0,.6)}
+.skills-head p{margin-top:10px;color:var(--muted);font-size:16px}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.skill{padding:26px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:border-color .3s ease,background .3s ease,transform .3s ease}
+.skill:hover{border-color:var(--line-strong);background:var(--glass-2);transform:translateY(-3px)}
+.skill-title{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.skill-title .card-icon{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(93,240,168,.1);border:1px solid rgba(93,240,168,.18)}
+.skill-title svg{width:19px;height:19px}
+.chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.chips li{font-size:13.5px;color:var(--ink);padding:7px 13px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(255,255,255,.03)}
+
+/* ---------------- CONTACT / CTA ---------------- */
+.avail{display:inline-flex;align-items:center;gap:9px;margin-bottom:20px;font-size:13px;font-weight:600;color:var(--ink);padding:7px 14px;border-radius:999px;background:rgba(93,240,168,.08);border:1px solid rgba(93,240,168,.25)}
+.avail i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:ping 2.2s infinite}
+.cta-card{text-align:center;max-width:760px;margin:0 auto;padding:clamp(48px,7vw,80px) clamp(28px,5vw,64px);border-radius:var(--radius-lg);background:radial-gradient(120% 140% at 50% 0%, rgba(93,240,168,.12), transparent 55%), var(--glass-2);border:1px solid var(--line-strong);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.cta-card > p{margin:18px auto 0;max-width:520px;color:var(--muted);font-size:17px;line-height:1.65}
+.socials{margin-top:34px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.social{display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 10px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.social:hover{transform:translateY(-3px);border-color:rgba(93,240,168,.35);background:rgba(93,240,168,.06)}
+.social-ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--accent);background:rgba(93,240,168,.1);border:1px solid rgba(93,240,168,.18)}
+.social-ico svg{width:20px;height:20px}
+.social strong{font-size:14px;font-weight:700}
+.social span{font-size:12px;color:var(--muted-2);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.divider{margin:38px 0 26px;display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;font-weight:600;color:var(--muted)}
+.field input,.field select,.field textarea{font:inherit;font-size:15px;color:var(--ink);background:rgba(4,6,15,.55);border:1px solid var(--line-strong);border-radius:12px;padding:13px 14px;transition:border-color .2s ease,background .2s ease;width:100%}
+.field select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa6c4' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px}
+.field select option{background:#0b1020;color:var(--ink)}
+.field textarea{min-height:140px;resize:vertical;line-height:1.55}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted-2)}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:rgba(150,175,230,.34)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:rgba(4,6,15,.75)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:4px}
+.form-note{font-size:12.5px;color:var(--muted-2)}
+.form-status{grid-column:1/-1;font-size:14px;line-height:1.5;padding:12px 14px;border-radius:12px;display:none}
+.form-status.ok{display:block;color:var(--accent);background:rgba(93,240,168,.08);border:1px solid rgba(93,240,168,.25)}
+.form-status.err{display:block;color:#ff9b9b;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25)}
+
+.footer{display:flex;justify-content:space-between;gap:48px;flex-wrap:wrap;margin-top:clamp(64px,9vw,110px);padding-top:48px;border-top:1px solid var(--line)}
+.footer-brand p{margin-top:14px;color:var(--muted);font-size:14.5px;max-width:280px;line-height:1.6}
+.footer-cols{display:flex;gap:clamp(36px,6vw,72px);flex-wrap:wrap}
+.footer-col h4{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer-col a{font-size:14.5px;color:var(--muted);transition:color .2s ease}
+.footer-col a:hover{color:var(--ink)}
+.copyright{text-align:center;margin-top:56px;font-size:13px;color:var(--muted-2)}
+
+/* ---------------- PREVIEW MODAL ---------------- */
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:clamp(10px,3vw,36px);background:rgba(2,4,10,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.modal.open{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-panel{width:min(1280px,100%);height:min(860px,100%);display:flex;flex-direction:column;border-radius:18px;overflow:hidden;background:#070b1a;border:1px solid var(--line-strong);box-shadow:0 40px 120px -20px rgba(0,0,0,.9);animation:rise .35s cubic-bezier(.22,.7,.2,1)}
+@keyframes rise{from{transform:translateY(24px) scale(.98)}to{transform:none}}
+.modal-bar{display:flex;align-items:center;gap:12px;padding:10px 12px;background:rgba(10,15,32,.98);border-bottom:1px solid var(--line)}
+.modal-bar .preview-url{font-size:13px;padding:6px 14px}
+.modal-bar .btn{padding:8px 14px;font-size:13.5px}
+.icon-btn{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line-strong);background:rgba(255,255,255,.05);color:var(--ink);cursor:pointer}
+.icon-btn:hover{background:rgba(255,255,255,.1)}
+.icon-btn svg{width:18px;height:18px}
+.modal-body{position:relative;flex:1;background:#05081a}
+.modal-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width:980px){
+  .project,.project.flip{grid-template-columns:1fr}
+  .project.flip .preview{order:0}
+  .showcase-grid{grid-template-columns:1fr;text-align:center}
+  .showcase-copy p{margin-left:auto;margin-right:auto;max-width:600px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .showcase-btns,.showcase-copy .facts{justify-content:center}
+  .journey-grid{grid-template-columns:1fr}
+  .socials{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:720px){
+  .nav-links{display:none}
+  .nav{padding:18px 20px}
+  .section{padding:clamp(64px,16vw,110px) 20px}
+  .socials{grid-template-columns:repeat(2,1fr)}
+  .social:last-child:nth-child(odd){grid-column:1/-1}
+  .skills-grid{grid-template-columns:1fr}
+  .modal-bar .btn span{display:none}
+  .nav .btn-ghost{padding:8px 14px;font-size:14px}
+  /* phones: the planet sits behind more of the hero text, so darken it more */
+  .hero{background:linear-gradient(180deg,rgba(4,6,15,.9) 0%,rgba(4,6,15,.72) 55%,rgba(4,6,15,.35) 80%,rgba(4,6,15,.15) 100%)}
+  .hero-inner{transform:translateY(-4vh)}
+  .hero-hello{font-size:10.5px;letter-spacing:.08em;padding:6px 12px 6px 10px}
+  .hero-sub{color:#c3cce3}
+  .logos-label,.logo{color:var(--muted);opacity:1}
+  .brand{font-size:17px;letter-spacing:.12em}
+}
+@media (max-width:560px){
+  .dash-row{grid-template-columns:90px 1fr 56px}
+  .hero-actions .btn,.project-actions .btn{flex:1}
+  .cta-card{padding:40px 22px}
+  .footer{flex-direction:column}
+  .form{grid-template-columns:1fr}
+  .form-foot .btn{width:100%}
+}
+@media (max-width:380px){
+  .stats{grid-template-columns:1fr}
+  .logo{font-size:15px}
+  .logos-row{gap:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .dash-bar,.dash-fill,.soon-orbit,.soon-stars,.hero-hello i,.dash-live i,.avail i,.marquee-track{animation:none}
+  .marquee-track{flex-wrap:wrap;width:auto;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<canvas class="planet-canvas" aria-hidden="true"></canvas>
+
+<!-- shared icon sprites -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+</svg>
+
+<div class="page" id="top">
+
+  <!-- ============ SECTION 1 · HERO ============ -->
+  <header class="hero">
+    <nav class="nav" aria-label="Main">
+      <a href="#top" class="brand" aria-label="JENX World — home"><span class="brand-mark">▲</span>JENX <span class="brand-world">World</span></a>
+      <ul class="nav-links">
+        <li><a href="#work">Worlds</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost">Let's Talk</a>
+    </nav>
+
+    <div class="hero-inner">
+      <span class="hero-hello" data-reveal style="--rd:0ms"><i></i>Jenish Patel · UI/UX Designer &amp; Web App Developer</span>
+      <h1 class="hero-title" data-reveal style="--rd:60ms">Welcome to<br>JENX <em>World</em></h1>
+      <p class="hero-slogan" data-reveal style="--rd:120ms">Where ideas get their own <span>orbit</span>.</p>
+      <p class="hero-sub" data-reveal style="--rd:180ms">I'm Jenish — a UI/UX designer and web app developer from Bangalore. I design interfaces and 3D visuals, then build them into live, deployed worlds you can actually explore.</p>
+      <div class="hero-actions" data-reveal style="--rd:300ms">
+        <a href="#work" class="btn btn-primary">Explore My Worlds <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
+        <a href="#contact" class="btn btn-outline">Let's Build Together</a>
+      </div>
+    </div>
+
+    <div class="logos" id="connect" data-reveal style="--rd:420ms">
+      <p class="logos-label">Find me across the galaxy</p>
+      <div class="logos-row">
+        <a class="logo" href="https://www.instagram.com/jeniipatelll/" target="_blank" rel="noopener"><svg class="ico"><use href="#i-instagram"/></svg>Instagram</a>
+        <a class="logo" href="https://www.linkedin.com/in/jenishxpatel" target="_blank" rel="noopener"><svg class="ico"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        <a class="logo" href="https://github.com/jenishpatel01" target="_blank" rel="noopener"><svg class="ico"><use href="#i-github"/></svg>GitHub</a>
+        <a class="logo" href="mailto:jenishgajera8@gmail.com"><svg class="ico"><use href="#i-mail"/></svg>Email</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- slogan strip (duplicated once so the loop is seamless) -->
+  <div class="marquee" aria-label="Design it. Build it. Launch it.">
+    <div class="marquee-track" aria-hidden="true">
+      <span>Design it. Build it. Launch it.</span><span>From pixels to planets</span><span>Designed with soul, built to launch</span><span>Ideas deserve an orbit</span><span>Out of this world, on the web</span><span>Figma to live in one flight</span>
+      <span>Design it. Build it. Launch it.</span><span>From pixels to planets</span><span>Designed with soul, built to launch</span><span>Ideas deserve an orbit</span><span>Out of this world, on the web</span><span>Figma to live in one flight</span>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 2 · PROJECTS ============ -->
+  <section class="section work" id="work">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Worlds I've built</span>
+      <h2 data-reveal style="--rd:80ms">Designed in Figma. Launched into orbit.</h2>
+      <p data-reveal style="--rd:160ms">Every world below is live — the previews are the real landing pages. Click any preview to explore it right here before you step inside.</p>
+    </div>
+
+    <div class="projects" id="projects"></div>
+  </section>
+
+  <!-- ============ SECTION 3 · ABOUT + STATS ============ -->
+  <section class="section showcase" id="about">
+    <div class="showcase-grid">
+      <div class="showcase-copy">
+        <span class="eyebrow" data-reveal>About me</span>
+        <h2 data-reveal style="--rd:90ms">From pixels to planets — I own it end to end</h2>
+        <p data-reveal style="--rd:180ms">I'm Jenish Patel, a third-year Computer Science student and a freelance UI/UX designer &amp; web app developer. I design interfaces and 3D visuals, then build them into live sites — handling every step myself: requirements, design, build and deployment. The result is responsive, fast and live on the web, not stuck in a mockup.</p>
+        <ul class="facts" data-reveal style="--rd:220ms">
+          <li>📍 <b>Bangalore, India</b></li>
+          <li>🎓 <b>B.E. CSE</b> · 3rd year</li>
+          <li>💼 <b>Freelancing</b> · Present</li>
+        </ul>
+        <div class="showcase-btns" data-reveal style="--rd:270ms">
+          <a href="#contact" class="btn btn-primary">Work With Me <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
+          <a href="Resume.pdf" class="btn btn-outline" id="resume-btn" download hidden>Download Résumé <svg class="ico"><use href="#i-download"/></svg></a>
+        </div>
+      </div>
+
+      <div class="dashboard" data-reveal style="--rd:160ms" aria-label="Project status overview">
+        <div class="dash-top">
+          <span class="dash-title">Mission Control · 2026</span>
+          <span class="dash-live"><i></i>Live</span>
+        </div>
+        <div class="dash-bars" aria-hidden="true">
+          <div class="dash-bar" style="height:62%;--bd:0ms"></div>
+          <div class="dash-bar" style="height:88%;--bd:90ms"></div>
+          <div class="dash-bar" style="height:47%;--bd:180ms"></div>
+          <div class="dash-bar" style="height:95%;--bd:270ms"></div>
+          <div class="dash-bar" style="height:71%;--bd:360ms"></div>
+          <div class="dash-bar" style="height:80%;--bd:450ms"></div>
+          <div class="dash-bar" style="height:58%;--bd:540ms"></div>
+        </div>
+        <div class="dash-rows">
+          <div class="dash-row"><span>LIFE//XP</span><div class="dash-track"><div class="dash-fill" style="--w:100%"></div></div><b>Live</b></div>
+          <div class="dash-row"><span>NEXORA</span><div class="dash-track"><div class="dash-fill" style="--w:100%"></div></div><b>Live</b></div>
+          <div class="dash-row"><span>PRISM</span><div class="dash-track"><div class="dash-fill" style="--w:100%"></div></div><b>Live</b></div>
+          <div class="dash-row"><span>Planet Zero</span><div class="dash-track"><div class="dash-fill soon" style="--w:40%"></div></div><b class="soon">Building</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat" data-reveal style="--rd:0ms"><div class="stat-value">3</div><div class="stat-label">Live sites deployed</div></div>
+      <div class="stat" data-reveal style="--rd:80ms"><div class="stat-value">1</div><div class="stat-label">New world in development</div></div>
+      <div class="stat" data-reveal style="--rd:160ms"><div class="stat-value">100%</div><div class="stat-label">End to end — design to deploy</div></div>
+      <div class="stat" data-reveal style="--rd:240ms"><div class="stat-value">∞</div><div class="stat-label">Ideas still in orbit</div></div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3b · JOURNEY + SKILLS (from résumé) ============ -->
+  <section class="section journey" id="journey">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>The journey</span>
+      <h2 data-reveal style="--rd:80ms">Learning by day. Launching by night.</h2>
+      <p data-reveal style="--rd:160ms">A student who ships — studying computer science while designing and building real products for real clients.</p>
+    </div>
+
+    <div class="journey-grid">
+      <article class="jcard" data-reveal style="--rd:0ms">
+        <div class="jcard-top">
+          <span class="jcard-kind"><svg class="ico"><use href="#i-briefcase"/></svg>Experience</span>
+          <span class="pills"><span class="pill on">Present</span></span>
+        </div>
+        <h3>Freelance UI/UX Designer &amp; Web App Developer</h3>
+        <p class="jcard-sub">Self-employed · working with clients</p>
+        <ul>
+          <li>Design and build websites and web apps for clients, covering UI/UX, 3D visuals and front-end development.</li>
+          <li>Own each project end to end: requirements, design, build and deployment.</li>
+          <li>Deliver responsive, live sites hosted on Vercel.</li>
+        </ul>
+      </article>
+      <article class="jcard" data-reveal style="--rd:90ms">
+        <div class="jcard-top">
+          <span class="jcard-kind"><svg class="ico"><use href="#i-cap"/></svg>Education</span>
+          <span class="pills"><span class="pill on">3rd year · 5th sem</span><span class="pill">Expected 2028</span></span>
+        </div>
+        <h3>Bachelor of Engineering (B.E.), Computer Science and Engineering</h3>
+        <p class="jcard-sub">SEA College of Engineering and Technology, Bangalore (VTU)</p>
+        <ul>
+          <li>Currently in the 3rd year (5th semester), graduating in 2028.</li>
+          <li>Pairing computer-science fundamentals with real client work — every class gets tested on a live project.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="skills-head">
+      <h3 data-reveal>The toolkit behind every world</h3>
+      <p data-reveal style="--rd:80ms">Design, 3D and code — all under one roof.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill" data-reveal style="--rd:0ms">
+        <div class="skill-title"><span class="card-icon"><svg class="ico"><use href="#i-pen"/></svg></span>Design</div>
+        <ul class="chips"><li>UI/UX design</li><li>Wireframing</li><li>Prototyping</li><li>Responsive layouts</li><li>Visual design</li><li>Figma</li></ul>
+      </div>
+      <div class="skill" data-reveal style="--rd:90ms">
+        <div class="skill-title"><span class="card-icon"><svg class="ico"><use href="#i-cube"/></svg></span>3D</div>
+        <ul class="chips"><li>3D design</li><li>3D visuals for web interfaces</li><li>Product visuals</li></ul>
+      </div>
+      <div class="skill" data-reveal style="--rd:0ms">
+        <div class="skill-title"><span class="card-icon"><svg class="ico"><use href="#i-code"/></svg></span>Development</div>
+        <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>React</li><li>Responsive web apps</li></ul>
+      </div>
+      <div class="skill" data-reveal style="--rd:90ms">
+        <div class="skill-title"><span class="card-icon"><svg class="ico"><use href="#i-rocket"/></svg></span>Tools &amp; Deployment</div>
+        <ul class="chips"><li>Figma</li><li>GitHub</li><li>Vercel</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4 · CONTACT + FOOTER ============ -->
+  <section class="section cta" id="contact">
+    <div class="cta-card">
+      <span class="avail" data-reveal style="--rd:0ms"><i></i>Available for freelance projects</span><br>
+      <span class="eyebrow" data-reveal style="--rd:60ms">Got a project?</span>
+      <h2 data-reveal style="--rd:140ms">Let's build something out of this world.</h2>
+      <p data-reveal style="--rd:220ms">A website, a web app, a 3D experience — or just an idea that needs a home. Reach me on any channel below, or drop a message right here. It lands in my inbox and I'll reply by email.</p>
+
+      <div class="socials" data-reveal style="--rd:300ms">
+        <a class="social" href="https://www.instagram.com/jeniipatelll/" target="_blank" rel="noopener">
+          <span class="social-ico"><svg class="ico"><use href="#i-instagram"/></svg></span><strong>Instagram</strong><span>@jeniipatelll</span>
+        </a>
+        <a class="social" href="https://www.linkedin.com/in/jenishxpatel" target="_blank" rel="noopener">
+          <span class="social-ico"><svg class="ico"><use href="#i-linkedin"/></svg></span><strong>LinkedIn</strong><span>in/jenishxpatel</span>
+        </a>
+        <a class="social" href="https://github.com/jenishpatel01" target="_blank" rel="noopener">
+          <span class="social-ico"><svg class="ico"><use href="#i-github"/></svg></span><strong>GitHub</strong><span>@jenishpatel01</span>
+        </a>
+        <a class="social" href="mailto:jenishgajera8@gmail.com">
+          <span class="social-ico"><svg class="ico"><use href="#i-mail"/></svg></span><strong>Email</strong><span>jenishgajera8@gmail.com</span>
+        </a>
+        <a class="social" href="tel:+918861842986">
+          <span class="social-ico"><svg class="ico"><use href="#i-phone"/></svg></span><strong>Phone</strong><span>+91 88618 42986</span>
+        </a>
+      </div>
+
+      <div class="divider" data-reveal style="--rd:340ms">or send a message</div>
+
+      <form class="form" id="contact-form" novalidate data-reveal style="--rd:380ms">
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" name="name" type="text" autocomplete="name" maxlength="120" placeholder="Ada Lovelace" required />
+        </div>
+        <div class="field">
+          <label for="f-email">Your email <small style="font-weight:400;color:var(--muted-2)">(so I can reply)</small></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="you@example.com" required />
+        </div>
+        <div class="field full">
+          <label for="f-purpose">Purpose</label>
+          <select id="f-purpose" name="purpose" required>
+            <option value="" disabled selected>What's this about?</option>
+            <option>Freelance project</option>
+            <option>Collaboration</option>
+            <option>Job opportunity</option>
+            <option>Feedback on a project</option>
+            <option>Planet Zero updates</option>
+            <option>Just saying hi</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" maxlength="4000" placeholder="Tell me a bit about what you have in mind…" required></textarea>
+        </div>
+        <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        <div class="form-foot">
+          <span class="form-note">I usually reply within a couple of days.</span>
+          <button type="submit" class="btn btn-primary" id="f-submit">Send Message <svg class="ico"><use href="#i-send"/></svg></button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <a href="#top" class="brand"><span class="brand-mark">▲</span>JENX <span class="brand-world">World</span></a>
+        <p>Designed with soul. Built to launch. The home of Jenish Patel — UI/UX designer &amp; web app developer in Bangalore, India.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Work</h4>
+          <ul>
+            <li><a href="https://www.lifexp.tech" target="_blank" rel="noopener">LIFE//XP</a></li>
+            <li><a href="https://nexora-alpha-azure.vercel.app/" target="_blank" rel="noopener">NEXORA</a></li>
+            <li><a href="https://prism-theta-ten.vercel.app/" target="_blank" rel="noopener">PRISM</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/jeniipatelll/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.linkedin.com/in/jenishxpatel" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://github.com/jenishpatel01" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:jenishgajera8@gmail.com">Email me</a></li>
+            <li><a href="tel:+918861842986">+91 88618 42986</a></li>
+            <li><a href="#contact">Send a message</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <p class="copyright">© <span id="year"></span> JENX World · Jenish Patel — Built among the stars.</p>
+  </section>
+</div>
+
+<!-- Live preview modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-url" data-lenis-prevent>
+  <div class="modal-panel">
+    <div class="modal-bar">
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="preview-url" id="modal-url"></span>
+      <a class="btn btn-primary" id="modal-visit" href="#" target="_blank" rel="noopener"><span>Enter Site</span> <svg class="ico"><use href="#i-external"/></svg></a>
+      <button class="icon-btn" id="modal-close" type="button" aria-label="Close preview"><svg class="ico"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============ PAGE: projects, reveal, scroll, contact form ============ -->
+<script type="module">
+import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
+
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Show "Download Résumé" only if Resume.pdf sits next to this page */
+fetch('Resume.pdf', { method: 'HEAD' })
+  .then(r => { if (r.ok && (r.headers.get('content-type') || '').includes('pdf')) document.getElementById('resume-btn').hidden = false; })
+  .catch(() => {});
+
+/* ---------- Projects ---------- */
+const PROJECTS = [
+  {
+    name: 'LIFE//XP', url: 'https://www.lifexp.tech', host: 'lifexp.tech', status: 'live',
+    tagline: 'Your life. Your quests. Your level.',
+    desc: 'A game-style web app that turns everyday life into an RPG — complete real-life quests, earn XP, defeat personal bosses, collect Power Cards and evolve your companion. Designed and built end to end, live on its own domain.',
+    tags: ['UI/UX design', 'Gamification', 'End-to-end build', 'Own domain'],
+  },
+  {
+    name: 'NEXORA', url: 'https://nexora-alpha-azure.vercel.app/', host: 'nexora-alpha-azure.vercel.app', status: 'live',
+    tagline: 'Think faster. Outsmart everyone.',
+    desc: 'A competitive brain-game website with an AI mascot, NEXO, and six arenas — coding, debate, roast, business, knowledge and mind games. Designed in Figma, built as a responsive front end and deployed on Vercel.',
+    tags: ['Figma design', 'AI mascot', 'Six arenas', 'Vercel'],
+  },
+  {
+    name: 'PRISM', url: 'https://prism-theta-ten.vercel.app/', host: 'prism-theta-ten.vercel.app', status: 'live',
+    tagline: 'See your code differently.',
+    desc: 'Code intelligence for your whole repository — security, architecture, dependencies and performance, mapped in three dimensions. Designed and developed end to end and deployed on Vercel.',
+    tags: ['3D visuals', 'Developer tools', 'End-to-end build', 'Vercel'],
+  },
+  {
+    name: 'Planet Zero', url: null, host: 'planet-zero · classified', status: 'soon',
+    tagline: 'A new world is forming.',
+    desc: 'The next world in JENX World is currently being built and still under wraps. Send a message with "Planet Zero updates" and you\'ll be the first to know when it launches.',
+    tags: ['Upcoming', 'In development', 'Stay tuned'],
+  },
+];
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const list = document.getElementById('projects');
+list.innerHTML = PROJECTS.map((p, i) => {
+  const soon = p.status === 'soon';
+  const screen = soon
+    ? `<div class="soon-screen"><div class="soon-stars"></div><div class="soon-orbit o2"></div><div class="soon-orbit"></div><div class="soon-planet"></div><div class="soon-text">Transmission incoming<b>PLANET ZERO</b></div></div>`
+    : `<div class="preview-loading"><span>Loading live preview</span></div>`;
+  const preview = soon
+    ? `<div class="preview" aria-label="Planet Zero — coming soon">`
+    : `<button class="preview" type="button" data-open="${i}" aria-label="Open live preview of ${esc(p.name)}">`;
+  const previewEnd = soon ? `</div>` : `</button>`;
+  const actions = soon
+    ? `<a href="#contact" class="btn btn-primary" data-notify>Notify Me <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>`
+    : `<button type="button" class="btn btn-primary" data-open="${i}">Live Preview <svg class="ico"><use href="#i-eye"/></svg></button>
+       <a href="${p.url}" target="_blank" rel="noopener" class="btn btn-outline">Visit Site <svg class="ico"><use href="#i-external"/></svg></a>`;
+  return `
+  <article class="project${i % 2 ? ' flip' : ''}" data-reveal style="--rd:${(i % 2) * 90}ms">
+    ${preview}
+      <div class="preview-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="preview-url"><b>${soon ? '◌' : '🔒'}</b> ${esc(p.host)}</span></div>
+      <div class="preview-screen" ${soon ? '' : `data-src="${p.url}"`}>${screen}</div>
+      ${soon ? '' : `<div class="preview-hover"><span><svg class="ico"><use href="#i-eye"/></svg>Explore live preview</span></div>`}
+    ${previewEnd}
+    <div class="project-info">
+      <span class="project-num">0${i + 1}</span>
+      <span class="project-status${soon ? ' soon' : ''}"><i></i>${soon ? 'Coming soon' : 'Live'}</span>
+      <h3>${esc(p.name)}</h3>
+      <p class="project-tagline">${esc(p.tagline)}</p>
+      <p class="project-desc">${esc(p.desc)}</p>
+      <ul class="tags">${p.tags.map(t => `<li>${esc(t)}</li>`).join('')}</ul>
+      <div class="project-actions">${actions}</div>
+    </div>
+  </article>`;
+}).join('');
+
+/* Scale the 1440×900 landing-page iframe to fit its frame */
+const IFRAME_W = 1440;
+function fitIframe(screen) {
+  const f = screen.querySelector('iframe');
+  if (f) f.style.transform = `scale(${screen.clientWidth / IFRAME_W})`;
+}
+const screens = [...document.querySelectorAll('.preview-screen[data-src]')];
+const ro = new ResizeObserver(entries => entries.forEach(e => fitIframe(e.target)));
+screens.forEach(s => ro.observe(s));
+
+/* Only load each live preview when it comes near the viewport */
+const loadIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const s = e.target; loadIO.unobserve(s);
+    const f = document.createElement('iframe');
+    f.src = s.dataset.src; f.title = 'Live preview'; f.tabIndex = -1;
+    f.setAttribute('loading', 'lazy'); f.setAttribute('aria-hidden', 'true');
+    f.addEventListener('load', () => { f.classList.add('ready'); s.querySelector('.preview-loading')?.remove(); });
+    s.appendChild(f); fitIframe(s);
+  });
+}, { rootMargin: '400px 0px' });
+screens.forEach(s => loadIO.observe(s));
+
+/* ---------- Lenis smooth scroll ---------- */
+let lenis = null;
+if (!REDUCED) {
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true, touchMultiplier: 1.5 });
+  const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+  requestAnimationFrame(raf);
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = a.getAttribute('href');
+  const el = id === '#top' ? document.body : document.querySelector(id);
+  if (!el) return;
+  e.preventDefault();
+  if (a.hasAttribute('data-notify')) document.getElementById('f-purpose').value = 'Planet Zero updates';
+  if (lenis) lenis.scrollTo(id === '#top' ? 0 : el, { offset: -10 });
+  else el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth' });
+});
+
+/* ---------- Preview modal ---------- */
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modal-body');
+let lastFocus = null;
+function openModal(i) {
+  const p = PROJECTS[i];
+  lastFocus = document.activeElement;
+  document.getElementById('modal-url').innerHTML = `<b>🔒</b> ${esc(p.host)} — ${esc(p.name)}`;
+  document.getElementById('modal-visit').href = p.url;
+  modalBody.innerHTML = `<iframe src="${p.url}" title="${esc(p.name)} live preview" allow="fullscreen; autoplay; clipboard-write"></iframe>`;
+  modal.classList.add('open');
+  lenis?.stop();
+  document.getElementById('modal-close').focus();
+}
+function closeModal() {
+  modal.classList.remove('open');
+  modalBody.innerHTML = '';
+  lenis?.start();
+  lastFocus?.focus();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-open]');
+  if (b) openModal(+b.dataset.open);
+});
+document.getElementById('modal-close').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+/* ---------- Staggered reveal ---------- */
+const revealEls = document.querySelectorAll('[data-reveal]');
+if (REDUCED) revealEls.forEach(el => el.classList.add('in'));
+else {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  revealEls.forEach(el => io.observe(el));
+}
+
+/* ---------- Contact form ----------
+   Each message is (1) saved to the Supabase table `portfolio_messages`
+   (visitors can only insert; read them in the Supabase dashboard) and
+   (2) emailed to Jenish via FormSubmit with reply-to set to the sender. */
+const SUPABASE_URL = 'https://pfvyljatsggtnmcvkhho.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_h2ryXu3E_CsMM7I9RZ8Dqg_Mct3Situ';
+const INBOX_EMAIL = 'jenishgajera8@gmail.com';
+
+const form = document.getElementById('contact-form');
+const statusEl = document.getElementById('form-status');
+const submitBtn = document.getElementById('f-submit');
+const setStatus = (type, msg) => { statusEl.className = 'form-status ' + type; statusEl.textContent = msg; };
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+  const name = (data.name || '').trim();
+  const email = (data.email || '').trim();
+  const purpose = (data.purpose || '').trim();
+  const message = (data.message || '').trim();
+
+  if (!name || !email || !purpose || !message) return setStatus('err', 'Please fill in your name, email, purpose and message.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return setStatus('err', 'That email doesn\'t look right — I need it to reply to you.');
+  if (data.website) { form.reset(); return setStatus('ok', 'Thanks! Your message is on its way.'); } // bot honeypot
+
+  let last = 0; try { last = +localStorage.getItem('pf-last-send') || 0; } catch {}
+  if (Date.now() - last < 30000) return setStatus('err', 'You just sent a message — please wait a few seconds before sending another.');
+
+  submitBtn.disabled = true;
+  const label = submitBtn.innerHTML;
+  submitBtn.textContent = 'Sending…';
+  setStatus('', '');
+
+  const save = fetch(`${SUPABASE_URL}/rest/v1/portfolio_messages`, {
+    method: 'POST',
+    headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify({ name, email, purpose, message }),
+  });
+  const mail = fetch(`https://formsubmit.co/ajax/${INBOX_EMAIL}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      name, email, purpose, message,
+      _subject: `JENX World message: ${purpose} — ${name}`,
+      _replyto: email, _template: 'table', _captcha: 'false',
+    }),
+  });
+  const [saved, mailed] = await Promise.allSettled([save, mail]);
+  const ok = r => r.status === 'fulfilled' && r.value.ok;
+
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = label;
+  if (ok(saved) || ok(mailed)) {
+    try { localStorage.setItem('pf-last-send', String(Date.now())); } catch {}
+    form.reset();
+    setStatus('ok', `Thanks ${name.split(' ')[0]}! Your message reached me — I'll reply to ${email} soon.`);
+  } else {
+    setStatus('err', `Something went wrong sending your message. Please email me directly at ${INBOX_EMAIL}.`);
+  }
+});
+</script>
+
+<!-- ============ WEBGL PLANET SCENE ============ -->
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
+import { CopyShader } from 'three/examples/jsm/shaders/CopyShader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const ASSET_BASE_URL = 'https://api.getlayers.ai/storage/v1/object/public/public/assets/ascend-d9857ad1f2';
+const PLANET_GLB = `${ASSET_BASE_URL}/planet.glb`;
+const PLANET_LIGHTS_GLB = `${ASSET_BASE_URL}/planet-lights.glb`;
+const PLANET_CLOUDS_PNG = `${ASSET_BASE_URL}/planet-clouds.png`;
+
+const CONFIG = {
+  rimColor:'#c1faff', rimPower:2.4, nightLights:10, terrainDepth:0.33, terrainShade:1.3,
+  oceanGlint:0.45, oceanDeep:0.12, oceanFlow:3, oceanFlowSpeed:0.8, oceanFlowScale:2.1,
+  glowColor:'#3a6cff', glowIntensity:3.35, planetRadius:1.95, spin:0.03, initRotation:2.07,
+  tilt:0.37, autoRotate:0,
+  cloud1Height:1.005, cloud1Opacity:0.6, cloud1Spin:0.06,
+  cloud2Height:1.03, cloud2Opacity:0.5, cloud2Spin:0.14,
+  cloud3Height:1.075, cloud3Opacity:0.5, cloud3Spin:0.1,
+  bgColor:'#040a1e', flameColor:'#3a6cff', flameColor2:'#c1faff', flameAmt:0.15,
+  atmoColor:'#9fc4ff', atmoCount:320, atmoSize:22, atmoSpeed:0.8,
+  starColor:'#cfe0ff', starCount:1400, starSize:1.6, starFlicker:1,
+  markerColor:'#ffd27a', markerCount:60, markerSize:16, markerSpeed:0.5,
+};
+const LAYERS = { NONE:0, TORUS_SCENE:1, BLOOM_SCENE:2, ENTIRE_SCENE:3 };
+
+const STOPS_X = [{p:0,v:0},{p:0.32,v:-3.1},{p:0.64,v:3.2},{p:1,v:0}];
+const STOPS_Y = [{p:0,v:-4.5},{p:0.32,v:0.55},{p:0.64,v:0.45},{p:1,v:0.15}];
+const STOPS_S = [{p:0,v:2.15},{p:0.32,v:1.0},{p:0.64,v:0.92},{p:1,v:1.12}];
+const ENTRY_DUR = 1.9, ENTRY_START_Y = -6.5;
+
+/* ---------- helpers ---------- */
+const Lerp = (a, b, t) => a + (b - a) * t;
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+function hexToVec3(hex) {
+  const n = parseInt(hex.replace('#', ''), 16);
+  return new THREE.Vector3(((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255);
+}
+function sample(stops, p) {
+  if (p <= stops[0].p) return stops[0].v;
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i], b = stops[i + 1];
+    if (p <= b.p) {
+      let t = (p - a.p) / (b.p - a.p);
+      t = t * t * (3 - 2 * t);
+      return Lerp(a.v, b.v, t);
+    }
+  }
+  return stops[stops.length - 1].v;
+}
+
+const SNOISE = `
+vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+float snoise(vec3 v){
+  const vec2 C = vec2(1.0/6.0, 1.0/3.0); const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+  vec3 i = floor(v + dot(v, C.yyy)); vec3 x0 = v - i + dot(i, C.xxx);
+  vec3 g = step(x0.yzx, x0.xyz); vec3 l = 1.0 - g;
+  vec3 i1 = min(g.xyz, l.zxy); vec3 i2 = max(g.xyz, l.zxy);
+  vec3 x1 = x0 - i1 + 1.0 * C.xxx; vec3 x2 = x0 - i2 + 2.0 * C.xxx; vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+  i = mod(i, 289.0);
+  vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+  float n_ = 1.0/7.0; vec3 ns = n_ * D.wyz - D.xzx;
+  vec4 j = p - 49.0 * floor(p * ns.z *ns.z);
+  vec4 x_ = floor(j * ns.z); vec4 y_ = floor(j - 7.0 * x_);
+  vec4 x = x_ *ns.x + ns.yyyy; vec4 y = y_ *ns.x + ns.yyyy; vec4 h = 1.0 - abs(x) - abs(y);
+  vec4 b0 = vec4(x.xy, y.xy); vec4 b1 = vec4(x.zw, y.zw);
+  vec4 s0 = floor(b0)*2.0 + 1.0; vec4 s1 = floor(b1)*2.0 + 1.0; vec4 sh = -step(h, vec4(0.0));
+  vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy; vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+  vec3 p0 = vec3(a0.xy,h.x); vec3 p1 = vec3(a0.zw,h.y); vec3 p2 = vec3(a1.xy,h.z); vec3 p3 = vec3(a1.zw,h.w);
+  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+  vec4 m = max(0.5 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0); m = m * m;
+  return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+}
+`;
+
+/* ---------- renderer / scene / camera ---------- */
+const canvas = document.querySelector('.planet-canvas');
+let renderer;
+try {
+  renderer = new THREE.WebGL1Renderer({ canvas, antialias: true });
+} catch (err) {
+  console.warn('WebGL unavailable — planet disabled.', err);
+}
+
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight, false);
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.VSMShadowMap;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x000000);
+
+  const camera = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.1, 200);
+  camera.position.set(0, 0, 8);
+  camera.layers.enable(LAYERS.TORUS_SCENE);
+  camera.layers.enable(LAYERS.BLOOM_SCENE);
+  camera.layers.enable(LAYERS.ENTIRE_SCENE);
+  scene.add(camera);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 1.8);
+  ambient.layers.set(LAYERS.ENTIRE_SCENE);
+  scene.add(ambient);
+  const dir = new THREE.DirectionalLight(0xffffff, 0.8);
+  dir.position.set(0, 10, 2);
+  dir.layers.set(LAYERS.ENTIRE_SCENE);
+  scene.add(dir);
+
+  const onEntire = o => o.layers.set(LAYERS.ENTIRE_SCENE);
+  const resVec = () => {
+    const v = new THREE.Vector2();
+    renderer.getDrawingBufferSize(v);
+    return v;
+  };
+
+  /* ---------- composers ---------- */
+  const W = innerWidth, H = innerHeight;
+  const torusComposer = new EffectComposer(renderer);
+  torusComposer.renderToScreen = false;
+  torusComposer.addPass(new RenderPass(scene, camera));
+  torusComposer.addPass(new ShaderPass(GammaCorrectionShader));
+  const torusBloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.22, 0.2, 0);
+  torusComposer.addPass(torusBloom);
+  torusComposer.addPass(new ShaderPass(CopyShader));
+
+  const bloomComposer = new EffectComposer(renderer);
+  bloomComposer.renderToScreen = false;
+  bloomComposer.addPass(new RenderPass(scene, camera));
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(W, H), 0.5, 0.6, 0);
+  bloomComposer.addPass(bloomPass);
+  bloomComposer.addPass(new ShaderPass(GammaCorrectionShader));
+
+  const FinalPass = {
+    uniforms: {
+      iTime:{value:0}, tDiffuse:{value:null}, torusTexture:{value:null}, bloomTexture:{value:null}, haloTexture:{value:null},
+      uBg:{value:hexToVec3(CONFIG.bgColor)}, uFlameA:{value:hexToVec3(CONFIG.flameColor)},
+      uFlameB:{value:hexToVec3(CONFIG.flameColor2)}, uFlameAmt:{value:CONFIG.flameAmt},
+    },
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }`,
+    fragmentShader: `
+      uniform float iTime; uniform sampler2D tDiffuse; uniform sampler2D bloomTexture; uniform sampler2D torusTexture; uniform sampler2D haloTexture;
+      uniform vec3 uBg; uniform vec3 uFlameA; uniform vec3 uFlameB; uniform float uFlameAmt;
+      varying vec2 vUv;
+      vec3 warp3d(vec3 pos, float t){ float curv=.8,a=1.9,b=0.7; pos*=2.;
+        pos.x+=curv*sin(t+a*pos.y)+t*b; pos.y+=curv*cos(t+a*pos.x);
+        pos.y+=curv*sin(t+a*pos.z)+t*b; pos.z+=curv*cos(t+a*pos.y);
+        pos.z+=curv*sin(t+a*pos.x)+t*b; pos.x+=curv*cos(t+a*pos.z);
+        return 0.5+0.5*cos(pos.xyz+vec3(1,2,4)); }
+      void main(){
+        vec2 uv = 2.*vUv - 1.;
+        vec3 w = pow(warp3d(vec3(uv.x, sin(uv.y), uv.y), iTime*1.5), vec3(1.5));
+        vec3 flame = 1.5*uFlameA*w.x; flame*=w.y; flame += uFlameB*w.z;
+        flame *= smoothstep(0.25, 1., abs(uv.y));
+        float md = smoothstep(-0.7, 1., -uv.y*uv.x); flame *= md*md;
+        vec3 bg = uBg * (1.0 - 0.4 * length(uv));
+        vec3 halo = texture2D(haloTexture, vUv).xyz;
+        gl_FragColor = vec4(bg + flame*uFlameAmt + texture2D(bloomTexture, vUv).xyz + texture2D(torusTexture, vUv).xyz + texture2D(tDiffuse, vUv).xyz + halo, 1.);
+      }`,
+  };
+  const finalComposer = new EffectComposer(renderer);
+  finalComposer.addPass(new RenderPass(scene, camera));
+  const finalPass = new ShaderPass(FinalPass);
+  finalPass.uniforms.bloomTexture.value = bloomComposer.renderTarget1.texture;
+  finalPass.uniforms.torusTexture.value = torusComposer.renderTarget1.texture;
+  finalComposer.addPass(finalPass);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.enablePan = false;
+  controls.enabled = false;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = CONFIG.autoRotate;
+  controls.minDistance = 3.5;
+  controls.maxDistance = 16;
+  controls.target.set(0, 0, 0);
+
+  /* ---------- groups ---------- */
+  const worldGroup = new THREE.Group();
+  worldGroup.position.set(STOPS_X[0].v, STOPS_Y[0].v, 0);
+  worldGroup.scale.setScalar(STOPS_S[0].v);
+  scene.add(worldGroup);
+
+  const planetGroup = new THREE.Group();
+  planetGroup.rotation.z = CONFIG.tilt;
+  worldGroup.add(planetGroup);
+
+  const cloudGroup = new THREE.Group();
+  cloudGroup.rotation.z = CONFIG.tilt;
+  cloudGroup.visible = false;
+  worldGroup.add(cloudGroup);
+
+  let planetTime = 0, cloudTime = 0, starTime = 0, markerTime = 0, spinPhase = 0;
+  const planetTimeU = { value: 0 };
+  const cloudTimeU = { value: 0 };
+
+  /* ---------- atmosphere halo ---------- */
+  const glowMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(2, 2),
+    new THREE.ShaderMaterial({
+      uniforms: { uGlow: { value: hexToVec3(CONFIG.glowColor) }, uIntensity: { value: CONFIG.glowIntensity } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }`,
+      fragmentShader: `
+        uniform vec3 uGlow; uniform float uIntensity; varying vec2 vUv;
+        void main(){
+          float d = length(vUv - 0.5) * 2.0;
+          float a = pow(clamp(1.0 - d, 0.0, 1.0), 2.2);
+          gl_FragColor = vec4(uGlow * a * uIntensity, a);
+        }`,
+      transparent: true, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending,
+    })
+  );
+  glowMesh.scale.setScalar(CONFIG.planetRadius * 2.3);
+  onEntire(glowMesh);
+  worldGroup.add(glowMesh);
+
+  /* ---------- ambient motes ---------- */
+  {
+    const n = CONFIG.atmoCount;
+    const pos = new Float32Array(n * 3), size = new Float32Array(n), seed = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      pos[i * 3] = Math.random() * 2 - 1; pos[i * 3 + 1] = Math.random() * 2 - 1; pos[i * 3 + 2] = Math.random() * 2 - 1;
+      size[i] = CONFIG.atmoSize * (0.4 + Math.random());
+      seed[i] = Math.random();
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setAttribute('size', new THREE.BufferAttribute(size, 1));
+    g.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
+    var motesMat = new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 }, uRes: { value: resVec() }, uColor: { value: hexToVec3(CONFIG.atmoColor) } },
+      vertexShader: `
+        attribute float size; attribute float seed; uniform float uTime; uniform vec2 uRes;
+        varying float vA;
+        vec3 warp(vec3 p, float t){ float c=0.9,a=1.9,b=0.02,s=0.05; p*=2.;
+          p.x+=c*sin(s*t+a*p.y)+t*b; p.y+=c*cos(s*t+a*p.x); p.y+=c*sin(s*t+a*p.z)+t*b;
+          p.z+=c*cos(s*t+a*p.y); p.z+=c*sin(s*t+a*p.x)+t*b; p.x+=c*cos(s*t+a*p.z);
+          return cos(p+vec3(1,2,4)); }
+        void main(){
+          vec3 v = position*4.0 + warp(position, uTime)*1.2;
+          vec4 mv = modelViewMatrix * vec4(v, 1.0);
+          float r = length(v); float farF = 1.0 - smoothstep(5.0, 6.5, r); float nearF = smoothstep(0.0, 0.5, -mv.z);
+          vA = farF * nearF;
+          gl_PointSize = size * uRes.y / 900.0 / -mv.z; gl_PointSize = max(gl_PointSize, 1.0);
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        uniform vec3 uColor; varying float vA;
+        void main(){ vec2 p = gl_PointCoord - 0.5; float l = length(p); if (l > 0.5) discard;
+          float tex = smoothstep(0.5, 0.0, l); gl_FragColor = vec4(uColor * tex, tex * vA * 0.55); }`,
+      transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
+    });
+    const motes = new THREE.Points(g, motesMat);
+    motes.frustumCulled = false;
+    onEntire(motes);
+    motes.onBeforeRender = () => {
+      const perfNow = performance.now() / 1000;
+      motesMat.uniforms.uTime.value = perfNow * CONFIG.atmoSpeed * 8;
+      motes.position.copy(camera.position);
+      motes.updateMatrixWorld();
+      finalPass.uniforms.iTime.value = perfNow;
+    };
+    scene.add(motes);
+  }
+
+  /* ---------- starfield ---------- */
+  let starMat;
+  {
+    const n = CONFIG.starCount, R = 90;
+    const pos = new Float32Array(n * 3), seed = new Float32Array(n), bright = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const u = Math.random() * 2 - 1, th = Math.random() * Math.PI * 2, s = Math.sqrt(1 - u * u);
+      pos[i * 3] = R * s * Math.cos(th); pos[i * 3 + 1] = R * u; pos[i * 3 + 2] = R * s * Math.sin(th);
+      seed[i] = Math.random() * Math.PI * 2;
+      bright[i] = 0.35 + Math.random() * 0.65;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
+    g.setAttribute('bright', new THREE.BufferAttribute(bright, 1));
+    starMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 }, uSize: { value: CONFIG.starSize }, uFlicker: { value: CONFIG.starFlicker },
+        uColor: { value: hexToVec3(CONFIG.starColor) }, uRes: { value: resVec() },
+      },
+      vertexShader: `
+        attribute float seed; attribute float bright;
+        uniform float uTime; uniform float uSize; uniform float uFlicker; uniform vec2 uRes;
+        varying float vTw;
+        void main(){
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          float tw = 0.6 + 0.4 * sin(uTime * uFlicker + seed);
+          vTw = bright * tw;
+          gl_PointSize = max(uSize * uRes.y / 900.0 * (90.0 / max(-mv.z, 1.0)), 1.0);
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        uniform vec3 uColor; varying float vTw;
+        void main(){
+          vec2 p = gl_PointCoord - 0.5; float l = length(p); if (l > 0.5) discard;
+          float core = smoothstep(0.5, 0.0, l);
+          gl_FragColor = vec4(uColor, core * vTw);
+        }`,
+      transparent: true, depthWrite: false, depthTest: true, blending: THREE.AdditiveBlending,
+    });
+    const stars = new THREE.Points(g, starMat);
+    stars.frustumCulled = false;
+    onEntire(stars);
+    scene.add(stars);
+  }
+
+  /* ---------- clouds ---------- */
+  const clouds = [];
+  const texLoader = new THREE.TextureLoader();
+  texLoader.load(PLANET_CLOUDS_PNG, tex => {
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(5, 5);
+    const layers = [
+      { h: CONFIG.cloud1Height, o: CONFIG.cloud1Opacity, s: 'cloud1Spin', ry: 0.0, phase: 0.0 },
+      { h: CONFIG.cloud2Height, o: CONFIG.cloud2Opacity, s: 'cloud2Spin', ry: 2.2, phase: 13.0 },
+      { h: CONFIG.cloud3Height, o: CONFIG.cloud3Opacity, s: 'cloud3Spin', ry: 4.3, phase: 27.0 },
+    ];
+    layers.forEach(layer => {
+      const mat = new THREE.MeshStandardMaterial({ map: tex, transparent: true, depthWrite: false });
+      mat.onBeforeCompile = shader => {
+        shader.uniforms.uTime = cloudTimeU;
+        shader.uniforms.noiseScale = { value: 20 };
+        shader.uniforms.uSpeedX = { value: 1 };
+        shader.uniforms.uSpeedY = { value: 2 };
+        shader.uniforms.uSpeedZ = { value: 2 };
+        shader.uniforms.uOpacity = { value: layer.o };
+        shader.uniforms.uPhase = { value: layer.phase };
+        shader.vertexShader = 'varying vec2 vCloudUv;\n' + shader.vertexShader.replace('void main() {', 'void main() {\n  vCloudUv = uv;');
+        shader.fragmentShader = `
+          uniform float uTime; uniform float noiseScale; uniform float uSpeedX; uniform float uSpeedY; uniform float uSpeedZ;
+          uniform float uOpacity; uniform float uPhase;
+          varying vec2 vCloudUv;
+          ${SNOISE}
+        ` + shader.fragmentShader.replace('#include <dithering_fragment>', `
+          #include <dithering_fragment>
+          gl_FragColor.rgb = vec3(1.0);
+          float cloudNoise = snoise(vec3(vCloudUv.x * noiseScale + uTime * uSpeedX + uPhase, vCloudUv.y * noiseScale - uTime * uSpeedY + uPhase, uTime * uSpeedZ + uPhase));
+          float cloudNdv = max(dot(normalize(vNormal), normalize(vViewPosition)), 0.0);
+          float cloudEdge = pow(1.0 - cloudNdv, 3.0);
+          float cloudMod = mix(cloudNoise, 1.0, cloudEdge);
+          float cloudNdl = dot(normalize(vNormal), normalize(vec3(-0.9, 0.18, 0.4)));
+          float cloudDay = 1.0 - smoothstep(0.30, -0.30, cloudNdl) * 0.9;
+          gl_FragColor.a *= cloudMod * uOpacity * cloudDay;
+        `);
+      };
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(CONFIG.planetRadius * layer.h, 64, 64), mat);
+      mesh.rotation.y = layer.ry;
+      mesh.renderOrder = 2;
+      onEntire(mesh);
+      cloudGroup.add(mesh);
+      clouds.push({ mesh, spinKey: layer.s });
+    });
+  });
+
+  /* ---------- planet ---------- */
+  let planetMesh = null, markerMat = null, entryStart = -1;
+  const draco = new DRACOLoader();
+  draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/');
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.setDRACOLoader(draco);
+
+  const firstMesh = root => { let m = null; root.traverse(o => { if (!m && o.isMesh) m = o; }); return m; };
+
+  gltfLoader.load(PLANET_LIGHTS_GLB, lightsGltf => {
+    const nightTex = firstMesh(lightsGltf.scene)?.material?.map || null;
+    gltfLoader.load(PLANET_GLB, gltf => {
+      const mesh = firstMesh(gltf.scene);
+      if (!mesh) return;
+      mesh.geometry.computeBoundingSphere();
+      const s = CONFIG.planetRadius / mesh.geometry.boundingSphere.radius;
+      mesh.removeFromParent();
+      mesh.position.set(0, 0, 0);
+      mesh.scale.setScalar(s);
+
+      const mat = mesh.material.clone();
+      mat.metalness = 0; mat.roughness = 1; mat.envMapIntensity = 0;
+      mat.extensions = { derivatives: true };
+      mat.onBeforeCompile = shader => {
+        Object.assign(shader.uniforms, {
+          time: planetTimeU, noiseScale: { value: 30 }, speedX: { value: 1.5 }, speedY: { value: 2.0 }, speedZ: { value: 2.5 },
+          rimColor: { value: new THREE.Color(CONFIG.rimColor) }, rimPower: { value: CONFIG.rimPower },
+          nightBlendTexture: { value: nightTex }, nightLights: { value: CONFIG.nightLights },
+          terrainDepth: { value: CONFIG.terrainDepth }, terrainShade: { value: CONFIG.terrainShade },
+          oceanGlint: { value: CONFIG.oceanGlint }, oceanDeep: { value: CONFIG.oceanDeep },
+          oceanFlow: { value: CONFIG.oceanFlow }, oceanFlowSpeed: { value: CONFIG.oceanFlowSpeed },
+          oceanFlowScale: { value: CONFIG.oceanFlowScale },
+        });
+        shader.vertexShader = 'varying vec2 vCustomUv;\n' + shader.vertexShader.replace('void main() {', 'void main() {\n  vCustomUv = uv;');
+        shader.fragmentShader = `
+          uniform float time; uniform float noiseScale; uniform float speedX; uniform float speedY; uniform float speedZ;
+          uniform vec3 rimColor; uniform float rimPower; uniform sampler2D nightBlendTexture; uniform float nightLights;
+          uniform float terrainDepth; uniform float terrainShade; uniform float oceanGlint; uniform float oceanDeep;
+          uniform float oceanFlow; uniform float oceanFlowSpeed; uniform float oceanFlowScale;
+          varying vec2 vCustomUv;
+          ${SNOISE}
+        ` + shader.fragmentShader.replace('#include <dithering_fragment>', `
+          #include <dithering_fragment>
+          vec3 normalizedNormal = normalize(vNormal);
+          vec3 viewDir = normalize(vViewPosition);
+          float rim = 1.0 - max(dot(viewDir, normalizedNormal), 0.0);
+          rim = pow(rim, rimPower); rim = pow(rim, 1.5); rim *= 0.7;
+          vec3 currentColor = gl_FragColor.rgb;
+          float blueDom = currentColor.b - max(currentColor.r, currentColor.g);
+          float waterMask = clamp(smoothstep(-0.005, 0.03, blueDom), 0.0, 1.0);
+          float shimmer = snoise(vec3(vCustomUv.x * noiseScale + time * speedX, vCustomUv.y * noiseScale - time * speedY, time * speedZ));
+          gl_FragColor.rgb += waterMask * shimmer * 0.025;
+          float fT = time * oceanFlowSpeed * 4.0;
+          float fS = 4.0 * oceanFlowScale;
+          float warp = snoise(vec3(vCustomUv.x * fS - fT * 0.5, vCustomUv.y * fS + fT * 0.4, fT * 0.5));
+          float flow = snoise(vec3(vCustomUv.x * fS * 2.0 + fT * 0.6 + warp, vCustomUv.y * fS * 2.0 - fT * 0.5, fT * 0.7));
+          flow = warp * 0.6 + flow * 0.4;
+          gl_FragColor.rgb += waterMask * flow * 0.12 * oceanFlow;
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.01, 0.06, 0.16), waterMask * oceanDeep);
+          vec3 finalColor = mix(gl_FragColor.rgb, rimColor, rim);
+          gl_FragColor = vec4(finalColor, 1.0);
+          vec3 surfPos = -vViewPosition;
+          float terrH = dot(texture2D(map, vCustomUv).rgb, vec3(0.299, 0.587, 0.114));
+          vec3 sigX = dFdx(surfPos), sigY = dFdy(surfPos);
+          vec3 vR1 = cross(sigY, normalizedNormal), vR2 = cross(normalizedNormal, sigX);
+          float fDet = dot(sigX, vR1);
+          vec3 vGrad = sign(fDet) * (dFdx(terrH) * vR1 + dFdy(terrH) * vR2);
+          vec3 bumpedNormal = normalize(abs(fDet) * normalizedNormal - terrainDepth * vGrad);
+          vec3 shadeNormal = mix(bumpedNormal, normalizedNormal, waterMask);
+          vec3 cityLights = texture2D(nightBlendTexture, vCustomUv).rgb * gl_FragColor.rgb * nightLights;
+          vec3 viewSunDir = normalize(vec3(-0.9, 0.18, 0.4));
+          float ndl = dot(normalizedNormal, viewSunDir);
+          float dayAmt = smoothstep(-0.05, 0.35, ndl);
+          float relief = dot(shadeNormal, viewSunDir) - ndl;
+          gl_FragColor.rgb *= clamp(1.0 + relief * terrainShade * dayAmt, 0.55, 1.6);
+          float nightFactor  = smoothstep(0.18, -0.30, ndl);
+          float lightsFactor = smoothstep(0.30, -0.35, ndl);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, gl_FragColor.rgb * 0.08, nightFactor);
+          gl_FragColor.rgb += cityLights * lightsFactor;
+          vec3 halfDir = normalize(viewSunDir + viewDir);
+          float ripple = snoise(vec3(vCustomUv * 240.0, time * 4.0));
+          float ndh = max(dot(normalizedNormal, halfDir) + ripple * 0.02, 0.0);
+          float glint = pow(ndh, 140.0);
+          gl_FragColor.rgb += glint * waterMask * dayAmt * oceanGlint * vec3(1.0, 0.97, 0.88);
+        `);
+      };
+      mesh.material = mat;
+      onEntire(mesh);
+      planetGroup.add(mesh);
+      planetMesh = mesh;
+      cloudGroup.visible = true;
+      entryStart = REDUCED ? -2 : performance.now() / 1000;
+
+      try { buildMarkers(mesh); } catch (err) { console.warn('Markers skipped:', err); }
+    });
+  });
+
+  /* ---------- land markers ---------- */
+  function buildMarkers(mesh) {
+    const img = mesh.material.map && mesh.material.map.image;
+    if (!img) return;
+    const iw = img.width, ih = img.height;
+    const cv = document.createElement('canvas');
+    cv.width = iw; cv.height = ih;
+    const ctx = cv.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0);
+    const pixels = ctx.getImageData(0, 0, iw, ih).data;
+    const flipY = mesh.material.map.flipY;
+
+    const geo = mesh.geometry;
+    const P = geo.attributes.position, UV = geo.attributes.uv, idx = geo.index;
+    if (!UV) return;
+    const triCount = idx ? idx.count / 3 : P.count / 3;
+    const vi = (t, k) => idx ? idx.getX(t * 3 + k) : t * 3 + k;
+
+    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+    const ab = new THREE.Vector3(), ac = new THREE.Vector3();
+    const cum = new Float32Array(triCount);
+    let total = 0;
+    for (let t = 0; t < triCount; t++) {
+      a.fromBufferAttribute(P, vi(t, 0)); b.fromBufferAttribute(P, vi(t, 1)); c.fromBufferAttribute(P, vi(t, 2));
+      total += ab.subVectors(b, a).cross(ac.subVectors(c, a)).length() * 0.5;
+      cum[t] = total;
+    }
+    const pickTri = r => {
+      let lo = 0, hi = triCount - 1;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (cum[mid] < r) lo = mid + 1; else hi = mid; }
+      return lo;
+    };
+
+    const out = [], seeds = [];
+    const ua = new THREE.Vector2(), ub = new THREE.Vector2(), uc = new THREE.Vector2();
+    let tries = 0;
+    while (seeds.length < CONFIG.markerCount && tries < 20000) {
+      tries++;
+      const t = pickTri(Math.random() * total);
+      let r1 = Math.random(), r2 = Math.random();
+      if (r1 + r2 > 1) { r1 = 1 - r1; r2 = 1 - r2; }
+      const w0 = 1 - r1 - r2;
+      ua.fromBufferAttribute(UV, vi(t, 0)); ub.fromBufferAttribute(UV, vi(t, 1)); uc.fromBufferAttribute(UV, vi(t, 2));
+      let u = ua.x * w0 + ub.x * r1 + uc.x * r2;
+      let v = ua.y * w0 + ub.y * r1 + uc.y * r2;
+      u = ((u % 1) + 1) % 1; v = ((v % 1) + 1) % 1;
+      const px = Math.min(iw - 1, Math.floor(u * iw));
+      const py = Math.min(ih - 1, Math.floor((flipY ? 1 - v : v) * ih));
+      const o = (py * iw + px) * 4;
+      const cr = pixels[o], cg = pixels[o + 1], cb = pixels[o + 2];
+      if (cb > cr + 6 && cb > cg + 6) continue; // ocean
+      a.fromBufferAttribute(P, vi(t, 0)); b.fromBufferAttribute(P, vi(t, 1)); c.fromBufferAttribute(P, vi(t, 2));
+      const x = (a.x * w0 + b.x * r1 + c.x * r2) * 1.012;
+      const y = (a.y * w0 + b.y * r1 + c.y * r2) * 1.012;
+      const z = (a.z * w0 + b.z * r1 + c.z * r2) * 1.012;
+      out.push(x, y, z);
+      seeds.push(Math.random());
+    }
+    if (!out.length) return;
+
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(out, 3));
+    g.setAttribute('seed', new THREE.Float32BufferAttribute(seeds, 1));
+    markerMat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 }, uColor: { value: hexToVec3(CONFIG.markerColor) },
+        uSize: { value: CONFIG.markerSize }, uSpeed: { value: CONFIG.markerSpeed }, uRes: { value: resVec() },
+      },
+      vertexShader: `
+        attribute float seed; uniform float uSize; uniform vec2 uRes;
+        varying float vSeed; varying float vFade;
+        void main(){
+          vSeed = seed;
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          vec3 vn = normalize(normalMatrix * normalize(position));
+          vec3 vd = normalize(-mv.xyz);
+          vFade = smoothstep(0.15, 0.5, dot(vn, vd));
+          gl_PointSize = max(uSize * uRes.y / 900.0 * (7.0 / max(-mv.z, 1.0)), 2.0);
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        uniform vec3 uColor; uniform float uTime; uniform float uSpeed;
+        varying float vSeed; varying float vFade;
+        void main(){
+          if (vFade <= 0.001) discard;
+          vec2 p = gl_PointCoord - 0.5;
+          float d = length(p) * 2.0;
+          if (d > 1.0) discard;
+          float core = smoothstep(0.30, 0.0, d) * 1.2;
+          float ph = fract(uTime * uSpeed + vSeed);
+          float ring = smoothstep(0.07, 0.0, abs(d - ph)) * (1.0 - ph);
+          gl_FragColor = vec4(uColor, clamp(core + ring, 0.0, 1.0) * vFade);
+        }`,
+      transparent: true, depthTest: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    });
+    const markers = new THREE.Points(g, markerMat);
+    markers.frustumCulled = false;
+    markers.layers.set(LAYERS.ENTIRE_SCENE);
+    mesh.add(markers);
+  }
+
+  /* ---------- resize ---------- */
+  function onResize() {
+    const w = innerWidth, h = innerHeight, pr = Math.min(devicePixelRatio, 2);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setPixelRatio(pr);
+    renderer.setSize(w, h, false);
+    [torusComposer, bloomComposer, finalComposer].forEach(c => { c.setPixelRatio(pr); c.setSize(w, h); });
+    const r = resVec();
+    motesMat.uniforms.uRes.value.copy(r);
+    starMat.uniforms.uRes.value.copy(r);
+    if (markerMat) markerMat.uniforms.uRes.value.copy(r);
+  }
+  addEventListener('resize', onResize);
+  onResize();
+
+  /* ---------- loop ---------- */
+  let curP = 0, curX = STOPS_X[0].v, curY = STOPS_Y[0].v, curS = STOPS_S[0].v;
+  let last = performance.now();
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+
+    // scroll story
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    const pTarget = clamp(scrollY / maxScroll, 0, 1);
+    curP += (pTarget - curP) * Math.min(1, dt * 4.5);
+    const sideScale = clamp(innerWidth / 1200, 0.5, 1);
+    const k = Math.min(1, dt * 3.2);
+    curX += (sample(STOPS_X, curP) * sideScale - curX) * k;
+    curY += (sample(STOPS_Y, curP) - curY) * k;
+    curS += (sample(STOPS_S, curP) - curS) * k;
+
+    // one-time float-up entrance
+    let entryY = 0;
+    if (entryStart === -1) entryY = ENTRY_START_Y;           // still loading: keep it below
+    else if (entryStart >= 0) {
+      const t = clamp((now / 1000 - entryStart) / ENTRY_DUR, 0, 1);
+      const e = 1 - Math.pow(1 - t, 3);
+      entryY = ENTRY_START_Y * (1 - e);
+      if (t >= 1) entryStart = -2;
+    }
+    worldGroup.position.set(curX, curY + entryY, 0);
+    worldGroup.scale.setScalar(curS);
+
+    spinPhase += dt * CONFIG.spin;
+    planetGroup.rotation.y = CONFIG.initRotation + spinPhase + curP * Math.PI * 1.6;
+    clouds.forEach(c => { c.mesh.rotation.y += dt * CONFIG[c.spinKey]; });
+
+    glowMesh.quaternion.copy(camera.quaternion);
+
+    planetTime += dt / 12; planetTimeU.value = planetTime;
+    cloudTime += dt / 20; cloudTimeU.value = cloudTime;
+    starTime += dt; starMat.uniforms.uTime.value = starTime;
+    markerTime += dt; if (markerMat) markerMat.uniforms.uTime.value = markerTime;
+
+    controls.update();
+
+    camera.layers.set(LAYERS.TORUS_SCENE); torusComposer.render();
+    camera.layers.set(LAYERS.BLOOM_SCENE); bloomComposer.render();
+    camera.layers.set(LAYERS.ENTIRE_SCENE); finalComposer.render();
+  }
+  requestAnimationFrame(frame);
+}
+</script>
+</body>
+</html>
