@@ -59,6 +59,8 @@ html.lenis,html.lenis body{height:auto}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px -8px rgba(93,240,168,.7)}
 .btn-outline{color:var(--ink);background:rgba(255,255,255,.04);border-color:var(--line-strong);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .btn-outline:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.hero-actions .btn-outline{background:rgba(4,6,15,.72)}
+.hero-actions .btn-outline:hover{background:rgba(4,6,15,.9)}
 .btn-ghost{color:var(--ink);background:rgba(255,255,255,.05);border-color:var(--line-strong);padding:9px 18px}
 .btn-ghost:hover{background:rgba(255,255,255,.1)}
 .btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
@@ -86,10 +88,13 @@ html.lenis,html.lenis body{height:auto}
 .hero-slogan span{color:var(--accent)}
 .hero-sub{margin-top:24px;max-width:560px;font-size:clamp(16px,2vw,19px);line-height:1.6;color:var(--muted);text-shadow:0 1px 24px rgba(0,0,0,.55)}
 .hero-actions{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-resume{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink);padding:8px 16px;border-radius:999px;background:rgba(4,6,15,.72);border:1px solid var(--line-strong);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:background .2s ease,transform .18s ease}
+.hero-resume:hover{background:rgba(4,6,15,.9);transform:translateY(-1px)}
+.hero-resume svg{width:16px;height:16px;color:var(--accent)}
 .logos{text-align:center;padding:0 24px clamp(36px,6vw,64px)}
-.logos-label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:18px}
+.logos-label{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;text-shadow:0 1px 14px rgba(0,0,0,.9),0 0 4px rgba(0,0,0,.8)}
 .logos-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(24px,5vw,56px)}
-.logo{font-size:17px;font-weight:700;color:var(--muted-2);opacity:.8;transition:color .2s ease,opacity .2s ease;display:inline-flex;align-items:center;gap:8px}
+.logo{font-size:17px;font-weight:700;color:var(--ink);opacity:.9;text-shadow:0 1px 14px rgba(0,0,0,.95),0 0 5px rgba(0,0,0,.85);transition:color .2s ease,opacity .2s ease;display:inline-flex;align-items:center;gap:8px}
 .logo svg{width:18px;height:18px}
 .logo:hover{color:var(--ink);opacity:1}
 
@@ -353,6 +358,7 @@ html.lenis,html.lenis body{height:auto}
         <li><a href="#work">Worlds</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#journey">Journey</a></li>
+        <li><a href="Resume.pdf" download="Jenish-Patel-Resume.pdf">Résumé</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <a href="#contact" class="btn btn-ghost">Let's Talk</a>
@@ -367,6 +373,7 @@ html.lenis,html.lenis body{height:auto}
         <a href="#work" class="btn btn-primary">Explore My Worlds <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
         <a href="#contact" class="btn btn-outline">Let's Build Together</a>
       </div>
+      <a class="hero-resume" href="Resume.pdf" download="Jenish-Patel-Resume.pdf" data-reveal style="--rd:380ms"><svg class="ico"><use href="#i-download"/></svg>Download résumé</a>
     </div>
 
     <div class="logos" id="connect" data-reveal style="--rd:420ms">
@@ -413,7 +420,7 @@ html.lenis,html.lenis body{height:auto}
         </ul>
         <div class="showcase-btns" data-reveal style="--rd:270ms">
           <a href="#contact" class="btn btn-primary">Work With Me <svg class="ico ico-arrow"><use href="#i-arrow"/></svg></a>
-          <a href="Resume.pdf" class="btn btn-outline" id="resume-btn" download hidden>Download Résumé <svg class="ico"><use href="#i-download"/></svg></a>
+          <a href="Resume.pdf" class="btn btn-outline" id="resume-btn" download="Jenish-Patel-Resume.pdf">Download Résumé <svg class="ico"><use href="#i-download"/></svg></a>
         </div>
       </div>
 
@@ -599,6 +606,7 @@ html.lenis,html.lenis body{height:auto}
             <li><a href="mailto:jenishgajera8@gmail.com">Email me</a></li>
             <li><a href="tel:+918861842986">+91 88618 42986</a></li>
             <li><a href="#contact">Send a message</a></li>
+            <li><a href="Resume.pdf" download="Jenish-Patel-Resume.pdf">Download résumé</a></li>
           </ul>
         </div>
       </div>
@@ -626,12 +634,6 @@ import Lenis from 'https://unpkg.com/lenis@1.3.23/dist/lenis.mjs';
 
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.getElementById('year').textContent = new Date().getFullYear();
-
-/* Show "Download Résumé" only if Resume.pdf sits next to this page */
-fetch('Resume.pdf', { method: 'HEAD' })
-  .then(r => { if (r.ok && (r.headers.get('content-type') || '').includes('pdf')) document.getElementById('resume-btn').hidden = false; })
-  .catch(() => {});
-
 /* ---------- Projects ---------- */
 const PROJECTS = [
   {
